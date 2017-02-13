@@ -1,0 +1,37 @@
+<!-- frontpage.html -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Garrett's Blog</title>
+    </head>
+    
+    <body>
+        <h1>My Blog!</h1>
+        
+        <form method="post">
+            <label>
+                <div>Title:</div>
+                <input type="text" name="title" value="{{title}}">
+            </label>
+            
+            <label>
+                <div>Content:</div>
+                <textarea name="body">{{body}}</textarea>
+            </label>
+            
+            <div class="error">{{error}}</div>
+            
+            <input type="submit">
+        </form>
+    <!--    
+        <hr>
+        
+        {% for art in arts %}
+            <div class="art">
+                <div class="art-title">{{art.title}}</div>
+                <pre class="art-body">{{art.art}}</pre>
+            </div>
+        {% endfor %}
+     -->   
+    </body>
+</html>
