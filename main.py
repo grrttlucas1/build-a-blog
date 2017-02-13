@@ -45,13 +45,20 @@ class Handler(webapp2.RequestHandler):
 
         
 class MainHandler(Handler):
-    def render_frontpage(self, title="", body="", error=""):
-        #arts = db.GqlQuery("select * from Art order by created desc")
+    def render_frontpage(self, 
+                         title="", 
+                         body ="", 
+                         error="", 
+                         blogs=""):
+                         
+        blogs = db.GqlQuery("SELECT * FROM Blog ORDER BY created DESC")
         
+
         self.render("frontpage.html", 
                     title= title, 
                     body = body, 
-                    error= error)
+                    error= error,
+                    blogs= blogs)
     
     def get(self):
         self.render_frontpage()
@@ -68,7 +75,7 @@ class MainHandler(Handler):
             
         else:
             error = "we need both a title and content."
-            self.render_frontpage(title, body, error)
+            self.render_frontpage(title, body, error, blogs)
             
             
 app = webapp2.WSGIApplication([

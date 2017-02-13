@@ -19,19 +19,20 @@
                 <textarea name="body">{{body}}</textarea>
             </label>
             
-            <div class="error">{{error}}</div>
+            <div>{{error}}</div>
             
             <input type="submit">
         </form>
-    <!--    
+     
         <hr>
         
-        {% for art in arts %}
-            <div class="art">
-                <div class="art-title">{{art.title}}</div>
-                <pre class="art-body">{{art.art}}</pre>
+        {% for blog in blogs %}
+            <div>
+                <div>{{blog.title}}</div>
+                <div>{{blog.created}}</div>
+                <pre>{{blog.body}}</pre>
             </div>
         {% endfor %}
-     -->   
+    
     </body>
 </html>
