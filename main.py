@@ -78,17 +78,34 @@ class NewPost(Handler):
         
         if title and body:
             b = Blog(title=title, body=body)
-            b.put()
+            b_key = b.put()
             
-            self.redirect("/")
+            id = b_key.id()
+            self.redirect("/blog/" + str(id))
             
         else:
             error = "we need both a title and content."
-            self.render_frontpage(title, body, error, blogs)
+            self.render_newpost(title, body, error)
 
             
+class ViewPost(Handler):
+
+    def render_blogpage(self, blogs="", blog=""):
+        self.render("blogpage.html", blogs= blogs, blog= blog)
+        
+    def get(self, id):
+
+        blog = Blog.get_by_id(int(id))
+        if blog:
+            self.render_blogpage(blogs="", blog=blog)
+        else:
+            error = "Oops.  Something went wrong."
+            self.response.write(error)
+
+        
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/blog', BlogPage),
     ('/newpost', NewPost),
+    webapp2.Route('/blog/<id:\d+>', ViewPost),
 ], debug=True)

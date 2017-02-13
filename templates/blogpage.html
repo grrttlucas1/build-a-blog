@@ -1,13 +1,21 @@
 {% extends "base.html" %}
 <!-- blogpage.html -->
 {% block content %}
-    
-    {% for blog in blogs %}
+
+    {% if blog %}
         <div>
-            <div><a href="/blog/{{blog.key().id()}}">{{blog.title}}</a></div>
-            <div>{{blog.created}}</div>
-            <pre>{{blog.body}}</pre>
+            <h2>{{blog.title}}</h2>
+            <div>{{blog.body}}</div>
         </div>
-    {% endfor %}
+    {% else %}
     
+        {% for blog in blogs %}
+            <div>
+                <div><a href="/blog/{{blog.key().id()}}">{{blog.title}}</a></div>
+                <div>{{blog.created}}</div>
+                <pre>{{blog.body}}</pre>
+            </div>
+        {% endfor %}
+        
+    {% endif %}
 {% endblock %}
