@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 <!-- newpost.html -->
 {% block content %}
-    <h1>My Blog!</h1>
     
     <form method="post">
         <label>
@@ -19,13 +18,4 @@
         <input type="submit">
     </form>
     
-    <hr>
-    
-    {% for blog in blogs %}
-        <div>
-            <div>{{blog.title}}</div>
-            <div>{{blog.created}}</div>
-            <pre>{{blog.body}}</pre>
-        </div>
-    {% endfor %}
 {% endblock %}

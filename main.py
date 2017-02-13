@@ -45,91 +45,32 @@ class Handler(webapp2.RequestHandler):
 
         
 class MainHandler(Handler):
-    def render_frontpage(self, 
-                         title="", 
-                         body ="", 
-                         error="", 
-                         blogs=""):
-                         
-        blogs = db.GqlQuery("SELECT * FROM Blog ORDER BY created DESC")
-        
-
-        self.render("frontpage.html", 
-                    title= title, 
-                    body = body, 
-                    error= error,
-                    blogs= blogs)
-    
     def get(self):
-        self.render_frontpage()
+        self.redirect('/blog')
         
-    def post(self):
-        title = self.request.get("title")
-        body  = self.request.get("body")
         
-        if title and body:
-            b = Blog(title=title, body=body)
-            b.put()
-            
-            self.redirect("/")
-            
-        else:
-            error = "we need both a title and content."
-            self.render_frontpage(title, body, error, blogs)
-            
-
 class BlogPage(Handler):
-    def render_frontpage(self, 
-                         title="", 
-                         body ="", 
-                         error="", 
-                         blogs=""):
-                         
-        blogs = db.GqlQuery("SELECT * FROM Blog ORDER BY created DESC")
-        
-
-        self.render("frontpage.html", 
-                    title= title, 
-                    body = body, 
-                    error= error,
-                    blogs= blogs)
+    def render_blogpage(self, blogs=""):
+        blogs = db.GqlQuery("SELECT * FROM Blog ORDER BY created DESC LIMIT 5")
+        self.render("blogpage.html", blogs= blogs)
     
     def get(self):
-        self.render_frontpage()
+        self.render_blogpage()
         
-    def post(self):
-        title = self.request.get("title")
-        body  = self.request.get("body")
-        
-        if title and body:
-            b = Blog(title=title, body=body)
-            b.put()
-            
-            self.redirect("/")
-            
-        else:
-            error = "we need both a title and content."
-            self.render_frontpage(title, body, error, blogs)
-
 
 class NewPost(Handler):
-    def render_frontpage(self, 
+    def render_newpost(self, 
                          title="", 
                          body ="", 
-                         error="", 
-                         blogs=""):
+                         error=""):
                          
-        blogs = db.GqlQuery("SELECT * FROM Blog ORDER BY created DESC")
-        
-
-        self.render("frontpage.html", 
+        self.render("newpost.html", 
                     title= title, 
                     body = body, 
-                    error= error,
-                    blogs= blogs)
+                    error= error)
     
     def get(self):
-        self.render_frontpage()
+        self.render_newpost()
         
     def post(self):
         title = self.request.get("title")
