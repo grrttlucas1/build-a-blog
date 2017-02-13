@@ -77,7 +77,77 @@ class MainHandler(Handler):
             error = "we need both a title and content."
             self.render_frontpage(title, body, error, blogs)
             
+
+class BlogPage(Handler):
+    def render_frontpage(self, 
+                         title="", 
+                         body ="", 
+                         error="", 
+                         blogs=""):
+                         
+        blogs = db.GqlQuery("SELECT * FROM Blog ORDER BY created DESC")
+        
+
+        self.render("frontpage.html", 
+                    title= title, 
+                    body = body, 
+                    error= error,
+                    blogs= blogs)
+    
+    def get(self):
+        self.render_frontpage()
+        
+    def post(self):
+        title = self.request.get("title")
+        body  = self.request.get("body")
+        
+        if title and body:
+            b = Blog(title=title, body=body)
+            b.put()
+            
+            self.redirect("/")
+            
+        else:
+            error = "we need both a title and content."
+            self.render_frontpage(title, body, error, blogs)
+
+
+class NewPost(Handler):
+    def render_frontpage(self, 
+                         title="", 
+                         body ="", 
+                         error="", 
+                         blogs=""):
+                         
+        blogs = db.GqlQuery("SELECT * FROM Blog ORDER BY created DESC")
+        
+
+        self.render("frontpage.html", 
+                    title= title, 
+                    body = body, 
+                    error= error,
+                    blogs= blogs)
+    
+    def get(self):
+        self.render_frontpage()
+        
+    def post(self):
+        title = self.request.get("title")
+        body  = self.request.get("body")
+        
+        if title and body:
+            b = Blog(title=title, body=body)
+            b.put()
+            
+            self.redirect("/")
+            
+        else:
+            error = "we need both a title and content."
+            self.render_frontpage(title, body, error, blogs)
+
             
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', MainHandler),
+    ('/blog', BlogPage),
+    ('/newpost', NewPost),
 ], debug=True)
